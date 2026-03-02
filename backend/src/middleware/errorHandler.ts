@@ -33,7 +33,8 @@ export function errorHandler(err: Error, _req: Request, res: Response, _next: Ne
     success: false,
     error: {
       code: 'INTERNAL_ERROR',
-      message: 'Erro interno do servidor',
+      message: process.env.NODE_ENV === 'production' ? 'Erro interno do servidor' : err.message,
+      debug: process.env.VERCEL ? err.message : undefined,
     },
   });
 }
