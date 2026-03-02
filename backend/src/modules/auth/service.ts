@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { v4 as uuid } from 'uuid';
+import crypto from 'crypto';
 import prisma from '../../config/database';
 import { env } from '../../config/env';
 import { AppError } from '../../middleware/errorHandler';
@@ -177,7 +177,7 @@ export const authService = {
       return { message: 'Se o email existir, enviaremos instruções de recuperação' };
     }
 
-    const resetToken = uuid();
+    const resetToken = crypto.randomUUID();
     const resetExpiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
     await prisma.user.update({
