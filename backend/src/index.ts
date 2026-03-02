@@ -12,7 +12,7 @@ const app = express();
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: env.FRONTEND_URL,
+  origin: [env.FRONTEND_URL, /\.vercel\.app$/],
   credentials: true,
 }));
 app.use(morgan('dev'));
@@ -31,10 +31,12 @@ app.use('/api/v1/auth', authRoutes);
 // Error handler (must be last)
 app.use(errorHandler);
 
-// Start server
-app.listen(env.PORT, () => {
-  console.log(`🚀 SONNA Backend running on port ${env.PORT}`);
-  console.log(`📍 Health check: http://localhost:${env.PORT}/api/health`);
-});
+// Start server (only when not running on Vercel)
+if (!process.env.VERCEL) {
+  app.listen(env.PORT, () => {
+    console.log(`🚀 SONNA Backend running on port ${env.PORT}`);
+    console.log(`📍 Health check: http://localhost:${env.PORT}/api/health`);
+  });
+}
 
 export default app;
