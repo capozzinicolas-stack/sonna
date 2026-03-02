@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import { env } from './config/env';
 import { errorHandler } from './middleware/errorHandler';
+import authRoutes from './modules/auth/routes';
 
 const app = express();
 
@@ -24,10 +25,8 @@ app.get('/api/health', (_req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// API routes placeholder
-app.use('/api/v1', (_req, res) => {
-  res.status(200).json({ success: true, message: 'SONNA API v1' });
-});
+// API routes
+app.use('/api/v1/auth', authRoutes);
 
 // Error handler (must be last)
 app.use(errorHandler);
