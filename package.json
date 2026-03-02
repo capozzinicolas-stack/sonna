@@ -1,0 +1,17 @@
+{
+  "name": "sonna",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SONNA — Plataforma SaaS de automação de chamadas outbound com IA conversacional",
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "build": "npm run build:backend && npm run build:frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
